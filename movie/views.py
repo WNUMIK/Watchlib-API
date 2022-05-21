@@ -1,3 +1,14 @@
 from django.shortcuts import render
+from django.views import View
+from .models import Movie
+from django.http import JsonResponse
 
-# Create your views here.
+
+class MovieList(View):
+    def get(self, request):
+        movies = Movie.objects.all()
+        data = {
+            'movies': list(movies.values())
+        }
+
+        return JsonResponse(data)

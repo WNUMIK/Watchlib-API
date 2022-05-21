@@ -10,5 +10,15 @@ class MovieList(View):
         data = {
             'movies': list(movies.values())
         }
+        return JsonResponse(data)
 
+
+class MovieDetail(View):
+    def get(self, request, pk):
+        movie = Movie.objects.get(pk=pk)
+        data = {
+            'name': movie.name,
+            'description': movie.description,
+            'active': movie.active,
+        }
         return JsonResponse(data)

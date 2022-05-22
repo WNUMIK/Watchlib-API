@@ -10,7 +10,7 @@ class MovieList(APIView):
     def get(self, request):
         movies = Movie.objects.all()
         serializer = MovieSerializer(movies, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
         serializer = MovieSerializer(data=request.data)
@@ -22,12 +22,18 @@ class MovieList(APIView):
 
 class MovieDetail(APIView):
     def get(self, request, pk):
-        movie = Movie.objects.get(pk=pk)
+        try:
+            movie = Movie.objects.get(pk=pk)
+        except Movie.DoesNotExist:
+            return Response({'error': 'Movie not found'}, status=status.HTTP_404_NOT_FOUND)
         serializer = MovieSerializer(movie)
         return Response(serializer.data)
 
     def put(self, request, pk):
-        movie = Movie.objects.get(pk=pk)
+        try:
+            movie = Movie.objects.get(pk=pk)
+        except Movie.DoesNotExist:
+            return Response({'error': 'Movie not found'}, status=status.HTTP_404_NOT_FOUND)
         serializer = MovieSerializer(movie, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -35,6 +41,9 @@ class MovieDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
-        movie = Movie.objects.get(pk=pk)
+        try:
+            movie = Movie.objects.get(pk=pk)
+        except Movie.DoesNotExist:
+            return Response({'error': 'Movie not found'}, status=status.HTTP_404_NOT_FOUND)
         movie.delete()
-        return Response()
+        return Response(status=status.HTTP_204_NO_CONTENT)

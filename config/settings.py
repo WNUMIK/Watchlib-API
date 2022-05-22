@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # local
-    'movie.apps.MovieConfig',
-    'api'
+    'watch.apps.WatchConfig',
+    'api',
 
 ]
 

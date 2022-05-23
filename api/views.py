@@ -14,7 +14,7 @@ from watch.models import WatchList, StreamPlatform, Review
 
 
 class ReviewCreate(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     serializer_class = ReviewSerializer
 
     def get_queryset(self):
@@ -42,7 +42,7 @@ class ReviewCreate(generics.CreateAPIView):
 
 
 class ReviewList(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
     serializer_class = ReviewSerializer
 
     def get_queryset(self):

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
     # local
     'watch.apps.WatchConfig',
-    'api',
+    'user_app.apps.UserAppConfig',
 
 ]
 
@@ -160,5 +160,4 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
-
 }

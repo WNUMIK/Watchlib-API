@@ -1,15 +1,13 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework import viewsets
-from rest_framework import mixins
 
-from api.permissions import AdminOrReadOnly, ReviewUserOrReadOnly
-from api.serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
+from watch.api.permissions import ReviewUserOrReadOnly
+from watch.api.serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
 from watch.models import WatchList, StreamPlatform, Review
 
 

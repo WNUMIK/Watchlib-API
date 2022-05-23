@@ -6,12 +6,26 @@
    _RESTful API with `GET`, `POST`, `PUT`, `PATCH`, `DELETE` methods_
 
 * **EndPoints**
-  * _/watch/_ `GET` - url to stream list
-      * _/watch/stream/_ `GET`, `POST` - list of platforms with list of items and list of reviews belonging to those items.
-        *_/watch/stream/<int:pk>_ `GET`, `PUT`, `PATCH`, `DELETE`
 
-API features:
-* **Authorization**
+```SUPERUSER```
+  * _/watch/_ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `GET` 
+      * _stream/_ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`GET`, `POST` 
+           - _<int:pk>/_ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`GET`, `PUT`, `PATCH`, `DELETE`
+      * _list/_ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `GET`, `POST`
+      * _<int:pk>/_&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `GET`, `PUT`, `DELETE` 
+        - _review-create/_ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`POST`
+        - _reviews/_&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`GET`, `POST`
+        - _review/<int:pk>/_&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`GET`, `PUT`, `PATCH`, `DELETE`
+      * 
+
+API:
+* **CRUD operations**
+* **Authentication**
 * **Permissions**
-* **Tokens**
+* **Data Validation**
+* **Filtering, Searching, Ordering**
+* **Pagination**
+* **Automated API Testing**
+* **Token Authentication**
 * **Throttling**
+* **JWT Authentication**

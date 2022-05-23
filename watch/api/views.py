@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework import viewsets
 
-from watch.api.permissions import ReviewUserOrReadOnly
+from watch.api.permissions import ReviewUserOrReadOnly, IsAdminOrReadOnly
 from watch.api.serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
 from watch.models import WatchList, StreamPlatform, Review
 
@@ -112,6 +112,7 @@ class StreamPlatformVS(viewsets.ModelViewSet):
 
 
 class StreamPlatformAV(APIView):
+    permission_classes = [IsAdminOrReadOnly]
 
     def get(self, request):
         platform = StreamPlatform.objects.all()
@@ -127,6 +128,7 @@ class StreamPlatformAV(APIView):
 
 
 class StreamPlatformDetailAV(APIView):
+    permission_classes = [IsAdminOrReadOnly]
 
     def get(self, request, pk):
         try:
@@ -157,6 +159,7 @@ class StreamPlatformDetailAV(APIView):
 
 
 class WatchListAV(APIView):
+    permission_classes = [IsAdminOrReadOnly]
 
     def get(self, request):
         items = WatchList.objects.all()
@@ -172,6 +175,7 @@ class WatchListAV(APIView):
 
 
 class WatchDetailAV(APIView):
+    permission_classes = [IsAdminOrReadOnly]
 
     def get(self, request, pk):
         try:

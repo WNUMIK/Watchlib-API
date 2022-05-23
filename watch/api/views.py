@@ -5,15 +5,16 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework import viewsets
-from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle, ScopedRateThrottle
 
 from watch.api.permissions import IsReviewUserOrReadOnly, IsAdminOrReadOnly
 from watch.api.serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
+from watch.api.throttling import ReviewListThrottle, ReviewCreateThrottle
 from watch.models import WatchList, StreamPlatform, Review
 
 
 class ReviewCreate(generics.CreateAPIView):
-    throttle_classes = [UserRateThrottle]
+    throttle_classes = [ReviewCreateThrottle]
     permission_classes = [IsAuthenticated]
     serializer_class = ReviewSerializer
 
@@ -43,6 +44,7 @@ class ReviewCreate(generics.CreateAPIView):
 
 class ReviewList(generics.ListCreateAPIView):
     # permission_classes = [IsAuthenticated]
+    throttle_classes = [ReviewListThrottle, AnonRateThrottle]
     serializer_class = ReviewSerializer
 
     def get_queryset(self):
@@ -51,7 +53,8 @@ class ReviewList(generics.ListCreateAPIView):
 
 
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
-    throttle_classes = [AnonRateThrottle]
+    throttle_classes = [ScopedRateThrottle]
+    throttle_scope = 'review-detail'
     permission_classes = [IsReviewUserOrReadOnly]
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer

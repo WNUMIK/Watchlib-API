@@ -14,4 +14,4 @@ API features:
 * **Authorization**
 * **Permissions**
 * **Tokens**
-* 
+* **Throttling**

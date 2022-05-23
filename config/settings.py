@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # 3rd party
     'rest_framework',
     'rest_framework.authtoken',
+    'django_filters',
 
     # local
     'watch.apps.WatchConfig',
@@ -167,7 +168,10 @@ REST_FRAMEWORK = {
         'review-create': '2/day',
         'review-list': '10/day',
         'review-detail': '4/day',
-    }
+    },
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
 }
 
 # SIMPLE_JWT = {

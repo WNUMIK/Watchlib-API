@@ -1,16 +1,28 @@
-from rest_framework import status
+from rest_framework import status, filters, generics, viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import generics
-from rest_framework import viewsets
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle, ScopedRateThrottle
+from django_filters.rest_framework import DjangoFilterBackend
 
+from watch.api.pagination import WatchListCPagination
 from watch.api.permissions import IsReviewUserOrReadOnly, IsAdminOrReadOnly
 from watch.api.serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
 from watch.api.throttling import ReviewListThrottle, ReviewCreateThrottle
 from watch.models import WatchList, StreamPlatform, Review
+
+
+class UserReview(generics.ListAPIView):
+    serializer_class = ReviewSerializer
+
+    # def get_queryset(self):
+    #     username = self.kwargs['username']
+    #     return Review.objects.filter(review_user__username=username)
+
+    def get_queryset(self):
+        username = self.request.query_params.get('username')
+        return Review.objects.filter(review_user__username=username)
 
 
 class ReviewCreate(generics.CreateAPIView):
@@ -34,7 +46,7 @@ class ReviewCreate(generics.CreateAPIView):
         if watchlist.number_rating == 0:
             watchlist.avg_rating = serializer.validated_data['rating']
         else:
-            watchlist.avg_rating = (watchlist.avg_rating + serializer.validated_data['rating'])/2
+            watchlist.avg_rating = (watchlist.avg_rating + serializer.validated_data['rating']) / 2
 
         watchlist.number_rating = watchlist.number_rating + 1
         watchlist.save()
@@ -46,6 +58,8 @@ class ReviewList(generics.ListCreateAPIView):
     # permission_classes = [IsAuthenticated]
     throttle_classes = [ReviewListThrottle, AnonRateThrottle]
     serializer_class = ReviewSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['review_user__username', 'active']
 
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -163,6 +177,21 @@ class StreamPlatformDetailAV(APIView):
             return Response({'error': 'Platform not found'}, status=status.HTTP_404_NOT_FOUND)
         platform.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class WatchListGV(generics.ListAPIView):
+    queryset = WatchList.objects.all()
+    serializer_class = WatchListSerializer
+    pagination_class = WatchListCPagination
+
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ['title', 'platform__name']
+
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['=title', 'platform__name']
+
+    # filter_backends = [filters.OrderingFilter]
+    # ordering_fields  = ['avg_rating']
 
 
 class WatchListAV(APIView):

@@ -1,18 +1,20 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework import viewsets
 from rest_framework import mixins
 
+from api.permissions import AdminOrReadOnly, ReviewUserOrReadOnly
 from api.serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
 from watch.models import WatchList, StreamPlatform, Review
 
 
 class ReviewCreate(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = ReviewSerializer
 
     def get_queryset(self):
@@ -32,7 +34,7 @@ class ReviewCreate(generics.CreateAPIView):
 
 
 class ReviewList(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = ReviewSerializer
 
     def get_queryset(self):
@@ -40,7 +42,8 @@ class ReviewList(generics.ListCreateAPIView):
         return Review.objects.filter(watchlist=pk)
 
 
-class ReviewDetail(generics.RetrieveAPIView):
+class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [ReviewUserOrReadOnly]
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
@@ -66,6 +69,7 @@ class ReviewDetail(generics.RetrieveAPIView):
 class StreamPlatformVS(viewsets.ModelViewSet):
     queryset = StreamPlatform.objects.all()
     serializer_class = StreamPlatformSerializer
+
 
 # class StreamPlatformVS(viewsets.ViewSet):
 #     """ViewSet with router in urls for list and detail of queryset object

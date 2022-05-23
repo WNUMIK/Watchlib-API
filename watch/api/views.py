@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle, ScopedRateThrottle
 from django_filters.rest_framework import DjangoFilterBackend
 
-from watch.api.pagination import WatchListCPagination
+from watch.api.pagination import WatchListCPagination, WatchListPagination
 from watch.api.permissions import IsReviewUserOrReadOnly, IsAdminOrReadOnly
 from watch.api.serializers import WatchListSerializer, StreamPlatformSerializer, ReviewSerializer
 from watch.api.throttling import ReviewListThrottle, ReviewCreateThrottle

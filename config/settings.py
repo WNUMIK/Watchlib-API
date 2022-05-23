@@ -163,11 +163,11 @@ REST_FRAMEWORK = {
     #     'rest_framework.throttling.UserRateThrottle'
     # ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '3/day',
-        'user': '3/day',
+        'anon': '100/day',
+        'user': '100/day',
         'review-create': '2/day',
-        'review-list': '10/day',
-        'review-detail': '4/day',
+        'review-list': '100/day',
+        'review-detail': '100/day',
     },
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend'

@@ -10,4 +10,8 @@
       * _/watch/stream/_ `GET`, `POST` - list of platforms with list of items and list of reviews belonging to those items.
         *_/watch/stream/<int:pk>_ `GET`, `PUT`, `PATCH`, `DELETE`
 
+API features:
 * **Authorization**
+* **Permissions**
+* **Tokens**
+* 

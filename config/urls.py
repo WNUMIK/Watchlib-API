@@ -21,4 +21,5 @@ from django.urls import path, include
 urlpatterns = [
     path(os.environ.get('ADMIN'), admin.site.urls),
     path('watch/', include('api.urls')),
+    path('api-auth', include('rest_framework.urls')),
 ]

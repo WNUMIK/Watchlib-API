@@ -44,6 +44,24 @@ class StreamPlatformTestCaseUser(APITestCase):
         response = self.client.post(reverse('stream-platform-list'), data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+    def test_delete_list(self):
+        data = {
+            "name": "Netshit",
+            "about": "Sh111y platform",
+            "website": "https://wwww.netshit.com"
+        }
+        response = self.client.delete(reverse('stream-platform-list'), data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_update_list(self):
+        data = {
+            "name": "Netshit",
+            "about": "Sh111y platform",
+            "website": "https://wwww.netshit.com"
+        }
+        response = self.client.put(reverse('stream-platform-list'), data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
     def test_get_list(self):
         response = self.client.get(reverse('stream-platform-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)

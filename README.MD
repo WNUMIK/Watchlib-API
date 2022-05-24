@@ -25,6 +25,7 @@ API:
 * **Data Validation**
 * **Filtering, Searching, Ordering**
 * **Pagination**
+* **JSON Renderer**
 * **Automated API Testing**
 * **Token Authentication**
 * **Throttling**

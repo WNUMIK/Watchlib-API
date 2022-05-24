@@ -12,6 +12,7 @@
       * _stream/_ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`GET`, `POST` 
            - _<int:pk>/_ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`GET`, `PUT`, `PATCH`, `DELETE`
       * _list/_ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `GET`, `POST`
+      * _list2/_ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `GET`, `POST`
       * _<int:pk>/_&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; `GET`, `PUT`, `DELETE` 
         - _review-create/_ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`POST`
         - _reviews/_&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;`GET`, `POST`

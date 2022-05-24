@@ -69,3 +69,32 @@ class StreamPlatformTestCaseUser(APITestCase):
     def test_get_detail(self):
         response = self.client.get(reverse('stream-platform-detail', args=(self.stream.id,)))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class WatchListTestCase(APITestCase):
+    def setUp(self) -> None:
+        self.user = User.objects.create_user(username='user', password='TestUser@123')
+        self.token = Token.objects.get(user__username=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+        self.stream = models.StreamPlatform.objects.create(name="TestPlatform", about="Tests",
+                                                           website="https://www.tests.com")
+        self.watchlist = models.WatchList.objects.create(platform=self.stream, title="Test Title", storyline="Test Storyline", active=True)
+
+    def test_post_create(self):
+        data = {
+            "platform": self.stream,
+            "title": "Example Title",
+            "storyline": "Example Story",
+            "active": True
+        }
+        response = self.client.post(reverse('watch-list'), data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_get_list(self):
+        response = self.client.get(reverse('watch-list'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_get_detail(self):
+        response = self.client.get(reverse('watch-detail', args=(self.watchlist.id,)))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

@@ -1,0 +1,511 @@
+swagger: '2.0'
+info:
+  title: Watchlib API
+  description: REST API watch library
+  termsOfService: https://www.google.com/policies/terms/
+  contact:
+    email: truecodelove@gmail.com
+  license:
+    name: Test License
+  version: v1
+host: 127.0.0.1:8000
+schemes:
+  - http
+basePath: /
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  Basic:
+    type: basic
+security:
+  - Basic: []
+paths:
+  /account/login/:
+    post:
+      operationId: account_login_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AuthToken'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/AuthToken'
+      tags:
+        - account
+    parameters: []
+  /account/logout/:
+    post:
+      operationId: account_logout_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /account/register/:
+    post:
+      operationId: account_register_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - account
+    parameters: []
+  /watch/list/:
+    get:
+      operationId: watch_list_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - watch
+    post:
+      operationId: watch_list_create
+      description: ''
+      parameters: []
+      responses:
+        '201':
+          description: ''
+      tags:
+        - watch
+    parameters: []
+  /watch/list2/:
+    get:
+      operationId: watch_list2_list
+      description: ''
+      parameters:
+        - name: search
+          in: query
+          description: A search term.
+          required: false
+          type: string
+        - name: record
+          in: query
+          description: The pagination cursor value.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            required:
+              - results
+            type: object
+            properties:
+              next:
+                type: string
+                format: uri
+                x-nullable: true
+              previous:
+                type: string
+                format: uri
+                x-nullable: true
+              results:
+                type: array
+                items:
+                  $ref: '#/definitions/WatchList'
+      tags:
+        - watch
+    parameters: []
+  /watch/review/{id}/:
+    get:
+      operationId: watch_review_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Review'
+      tags:
+        - watch
+    put:
+      operationId: watch_review_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Review'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Review'
+      tags:
+        - watch
+    patch:
+      operationId: watch_review_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Review'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Review'
+      tags:
+        - watch
+    delete:
+      operationId: watch_review_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - watch
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this review.
+        required: true
+        type: integer
+  /watch/reviews/:
+    get:
+      operationId: watch_reviews_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Review'
+      tags:
+        - watch
+    parameters: []
+  /watch/stream/:
+    get:
+      operationId: watch_stream_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/StreamPlatform'
+      tags:
+        - watch
+    post:
+      operationId: watch_stream_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/StreamPlatform'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/StreamPlatform'
+      tags:
+        - watch
+    parameters: []
+  /watch/stream/{id}/:
+    get:
+      operationId: watch_stream_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/StreamPlatform'
+      tags:
+        - watch
+    put:
+      operationId: watch_stream_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/StreamPlatform'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/StreamPlatform'
+      tags:
+        - watch
+    patch:
+      operationId: watch_stream_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/StreamPlatform'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/StreamPlatform'
+      tags:
+        - watch
+    delete:
+      operationId: watch_stream_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - watch
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this stream platform.
+        required: true
+        type: integer
+  /watch/{id}/:
+    get:
+      operationId: watch_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - watch
+    put:
+      operationId: watch_update
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - watch
+    delete:
+      operationId: watch_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - watch
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /watch/{id}/review-create/:
+    post:
+      operationId: watch_review-create_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Review'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Review'
+      tags:
+        - watch
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /watch/{id}/reviews/:
+    get:
+      operationId: watch_reviews-list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Review'
+      tags:
+        - watch
+    post:
+      operationId: watch_reviews_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Review'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Review'
+      tags:
+        - watch
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+definitions:
+  AuthToken:
+    required:
+      - username
+      - password
+    type: object
+    properties:
+      username:
+        title: Username
+        type: string
+        minLength: 1
+      password:
+        title: Password
+        type: string
+        minLength: 1
+      token:
+        title: Token
+        type: string
+        readOnly: true
+        minLength: 1
+  WatchList:
+    required:
+      - platform
+      - title
+      - storyline
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      platform:
+        title: Platform
+        type: string
+        minLength: 1
+      title:
+        title: Title
+        type: string
+        maxLength: 50
+        minLength: 1
+      storyline:
+        title: Storyline
+        type: string
+        maxLength: 200
+        minLength: 1
+      active:
+        title: Active
+        type: boolean
+      avg_rating:
+        title: Avg rating
+        type: number
+      number_rating:
+        title: Number rating
+        type: integer
+        maximum: 2147483647
+        minimum: -2147483648
+      created:
+        title: Created
+        type: string
+        format: date-time
+        readOnly: true
+      updated:
+        title: Updated
+        type: string
+        format: date-time
+        readOnly: true
+  Review:
+    required:
+      - rating
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      review_user:
+        title: Review user
+        type: string
+        readOnly: true
+      rating:
+        title: Rating
+        type: integer
+        maximum: 5
+        minimum: 1
+      description:
+        title: Description
+        type: string
+        maxLength: 200
+        minLength: 1
+        x-nullable: true
+      active:
+        title: Active
+        type: boolean
+      created:
+        title: Created
+        type: string
+        format: date-time
+        readOnly: true
+      update:
+        title: Update
+        type: string
+        format: date-time
+        readOnly: true
+  StreamPlatform:
+    required:
+      - name
+      - about
+      - website
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      watchlist:
+        type: array
+        items:
+          $ref: '#/definitions/WatchList'
+        readOnly: true
+      name:
+        title: Name
+        type: string
+        maxLength: 30
+        minLength: 1
+      about:
+        title: About
+        type: string
+        maxLength: 150
+        minLength: 1
+      website:
+        title: Website
+        type: string
+        format: uri
+        maxLength: 100
+        minLength: 1

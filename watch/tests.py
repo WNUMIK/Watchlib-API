@@ -108,6 +108,7 @@ class WatchListTestCase(APITestCase):
         self.assertEqual(models.WatchList.objects.count(), 1)
         self.assertEqual(models.WatchList.objects.get().title, 'Test Title')
 
+
 class ReviewTestCase(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(username="example", password="Password@123")
@@ -138,6 +139,7 @@ class ReviewTestCase(APITestCase):
 
         response = self.client.post(reverse('review-create', args=(self.watchlist.id,)), data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(models.Review.objects.count(), 2)
 
     def test_review_create_unauth(self):
         data = {
